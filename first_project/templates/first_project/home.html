@@ -1,0 +1,10 @@
+{% extends 'first_project/base.html' %}
+
+{% block main %}
+<h1>Hello world</h1>
+
+    {% for m in menu %}
+        <a href="{% url 'sub' %}" >{{ m.title }}</a>
+    {% endfor %}
+
+{% endblock main %}

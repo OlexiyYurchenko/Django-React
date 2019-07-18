@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Резюме</title>
+	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/5.0.0/normalize.css">
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'first_project/css.css' %}">
+	
+	
+
+
+</head>
+<body>
+	<div class="wrapper">
+	
+		<header class="header">
+			<div class="container">
+				<div class="header">
+					<div  class="header-top ">
+						<ul></ul>
+						<ul>
+							{% if not user.is_authenticated %}
+							<li class="header-topm">
+								<span class="name-user">Register
+								</span>
+								<div class="popap-register">
+									<h2>Register</h2>
+									<form>
+										{% csrf_token %}
+										<div class="card bg-red text-center" style="width: 100%; background: red; margin: 0 0 7px; border-radius: 5px; text-align: center;">
+												<div class="card-content card-register">
+												</div>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputregister">Login</label>
+											<input name='username' type="text" value="{{ username }}" class="form-control" id="exampleInputregister" placeholder="Login">
+											
+										</div>
+										
+										<div class="form-group">
+											<label for="regisret_pas">Password</label>
+											<input name='password' type="password" class="form-control" id="regisret_pas" placeholder="Password" minlength="6">
+										</div>
+										
+										
+										<div class="form-group">
+											<label for="exampleInputEmail1">Email address</label>
+											<input name='email' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+										</div>
+										
+										
+										<input type="submit" value='Register' class="btn btn-register">
+									</form>
+								</div>
+							</li>
+							<li class="header-topm">
+								<span class="name-user">Login</span>
+								<div class="popap-register">
+									<h2>Login</h2>
+									<form >
+										<div class="card bg-red text-center" style="width: 100%; background: red; margin: 0 0 7px; border-radius: 5px; text-align: center;">
+											<div class="card-content card-login">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputlogin">Login</label>
+											<input name='username' type="text" value="{{ username }}" class="form-control" id="exampleInputlogin" placeholder="Login">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Password</label>
+											<input name='password' type="password"  id="exampleInputPassword1" placeholder="Password">
+										</div>
+										<input type="submit" value='Login' class="btn btn-login">
+									</form>
+								</div>
+							</li>
+							{% else %}
+							<li class="header-topm">
+								<a  href="{% url 'logout' %}">logout</a>
+							</li>
+							{% endif %}
+						</ul>
+						
+					</div>
+					<div class="header-bottom container">
+						<a class="toggleMenu" href="#">{{ user }}</a>
+						<ul class="nav">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="main">
+			<div class="container">
+			{% block main %}
+			
+			{% endblock main %}
+			</div>
+		</main>
+		<footer class="footer">
+			<div class="container">
+				<div class="text">
+					<h3>FOOTER</h3>
+				</div>
+			</div>
+		</footer>	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+	<script src="{% static 'first_project/custom.js' %}"></script> 
+
+	</div>
+</body>

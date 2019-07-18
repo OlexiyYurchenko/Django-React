@@ -1,0 +1,24 @@
+{% extends 'first_project/base.html' %}
+
+{% block main %}
+<h1>Submenu</h1>
+
+    {% for s in submenu %}
+        <a href="#">{{ s.title }}</a>
+    {% endfor %}
+
+    {% for p in producsdivts %}
+        <a href="#">{{ p.title }}</a>
+        <div>{{ p.prise }}</div>
+        <div>{{ p.decs }}</div>
+        <div>{{ p.material_body }}</div>
+        <div>{{ p.water_protection }}</div>
+        <div>{{ p.Dimensions }} мм</div>
+        <div>{{ p.weight }} г</div>
+        <div>{{ p.color }}</div>
+        <div>{{ p.screen_type }}</div>
+        <div>{{ p.screen_size }}</div>
+        <div>{{ p.screen_px }}</div>
+
+    {% endfor %}
+{% endblock main %}

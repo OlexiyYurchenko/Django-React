@@ -1,0 +1,27 @@
+{% extends 'first_project/base.html' %}
+
+{% block main %}
+{% for msg in messages %}
+<div class="card bg-red text-center" style="width: 15%; background: red;">
+	<div class="card-content">
+	{{ msg }}
+	</div>
+</div>
+{% endfor %}
+	<form action="{% url 'login' %}" method="POST">
+		{% csrf_token %}
+	<div>
+		<label for="exampleInputlogin">Login</label>
+		<input name='username' type="text" value="{{ username }}" class="form-control" id="exampleInputlogin" placeholder="Login">
+
+	</div>
+	
+	<div>
+		<label for="exampleInputPassword1">Password</label>
+		<input name='password' type="password"  id="exampleInputPassword1" placeholder="Password">
+	</div>
+
+
+		<input type="submit" value='Login'>
+	</form>
+{% endblock main %}

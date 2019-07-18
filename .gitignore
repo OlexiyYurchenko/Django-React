@@ -1,0 +1,8 @@
+source/
+first_project/__pycache__/
+first_try/migrations/
+api/__pycache__/
+api/migrations/
+webpack-react/node_modules
+db.sqlite3
+manage.py
