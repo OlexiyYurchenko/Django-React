@@ -80,6 +80,8 @@ class Articles(View):
         form = ArticleForm(request.POST)
         if form.is_valid():
             post = Article(**form.cleaned_data)
+            print(post)
+            post.announce_text = str(request.POST.get('text'))[:512]
             post.autor = request.user
             post.save()
             data = {

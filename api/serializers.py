@@ -1,12 +1,12 @@
 from rest_framework import serializers
 # from django.contrib.auth.models import User
 from first_project.models import *
-import datetime
 
 
 class ArticlePreviewSerializer(serializers.ModelSerializer):
 
     autor_name = serializers.ReadOnlyField(source='autor.username')
+    created_at = serializers.DateTimeField(format="%Y.%m.%d %H:%M")
     class Meta:
         model = Article
         fields = [

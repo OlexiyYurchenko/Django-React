@@ -3,8 +3,11 @@ first_project/__pycache__/
 first_try/migrations/
 api/__pycache__/
 api/migrations/
+<<<<<<< HEAD
 web_react/
 Django-React/
+=======
+>>>>>>> f2d7d045415dacf7b75654b35f3900fb79c88b87
 webpack-react/node_modules
 db.sqlite3
 manage.py
