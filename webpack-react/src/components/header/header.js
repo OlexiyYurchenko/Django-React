@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Card from './dropdown'
 import './header.css';
 
 import { Link } from 'react-router-dom';
@@ -30,7 +29,7 @@ export default class JoinPage extends Component {
     document.addEventListener('click', this.handleClickOutside, false);
   }
   
-  handleClickOutside(e) {
+  handleClickOutside = (e) => {
     const menubtn = document.getElementsByClassName('btn-menu')[0];
     if (!e.path.includes(menubtn)) {
       this.setState({showMenu: false });
