@@ -1,6 +1,6 @@
 source/
 first_project/__pycache__/
-first_try/migrations/
+first_project/migrations/
 api/__pycache__/
 api/migrations/
 web_react/

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Header from '../header';
-
 import SwapiService from '../../services/swapi-service';
 import { ArticlePage, LoginPage, JoinPage, ArticleAddPage } from '../pages';
 import { SwapiServiceProvider} from '../swapi-service-context';
@@ -77,7 +76,8 @@ export default class App extends Component {
     });
   };
 
-  onlogout = () => {
+  onlogout = (e) => {
+    e.preventDefault();
     fetch('/logout/', {
       method: 'GET'
     })
@@ -163,7 +163,7 @@ export default class App extends Component {
         <SwapiServiceProvider value={this.state.swapiService}>
           <Router>
             <div className="wrapper">
-              <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} onlogout={this.onlogout} onToggleOpen={this.onToggleOpen} />
+              <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} onlogout={this.onlogout}  />
               <div className="container">
                 <Switch>
                 <Route path='/' component={ArticlePage} exact />

@@ -1,15 +1,52 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import Card from './dropdown'
 import './header.css';
 
 import { Link } from 'react-router-dom';
 
-const Header = ({isLoggedIn, UserName, onlogout, OpenMenu, onToggleOpen}) => {
+export default class JoinPage extends Component {
+
+  constructor() {
+    super();
+    
+    this.state = {
+      showMenu: false,
+    };
+    
+    this.showMenu = this.onToggleOpen.bind(this);
+  }
+
+
+  onToggleOpen = () => {
+    this.setState({showMenu: !this.state.showMenu });
+  };
+
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside, false);
+  }
+  
+  componentWillMount() {
+    document.addEventListener('click', this.handleClickOutside, false);
+  }
+  
+  handleClickOutside(e) {
+    const menubtn = document.getElementsByClassName('btn-menu')[0];
+    if (!e.path.includes(menubtn)) {
+      this.setState({showMenu: false });
+    }
+  }
+
+
+  render() {
+
+  const {isLoggedIn, UserName, onlogout} = this.props;
+  const {showMenu} = this.state;
 
   let className = 'drop-menu';
 
 
-  if(OpenMenu) {
+  if(showMenu) {
     className += ' open';
   }
 
@@ -24,9 +61,9 @@ const Header = ({isLoggedIn, UserName, onlogout, OpenMenu, onToggleOpen}) => {
               </Link >
             </div>
 
-
             <div className={className}>
-                <div className="btn" onClick={onToggleOpen}></div>
+
+                <div className="btn btn-menu" onClick={this.onToggleOpen}></div>
                 <div className="drop-header">
                   <div className="user">
                     <span class="user-info__nickname">{UserName}</span>
@@ -68,6 +105,5 @@ const Header = ({isLoggedIn, UserName, onlogout, OpenMenu, onToggleOpen}) => {
       </div>
     </div>
   );
+  }
 };
-
-export default Header;
