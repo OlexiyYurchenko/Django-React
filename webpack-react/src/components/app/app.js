@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../header';
+import Footer from '../footer';
 import SwapiService from '../../services/swapi-service';
 import { ArticlePage, LoginPage, JoinPage, ArticleAddPage } from '../pages';
 import { SwapiServiceProvider} from '../swapi-service-context';
@@ -164,34 +165,35 @@ export default class App extends Component {
           <Router>
             <div className="wrapper">
               <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} onlogout={this.onlogout}  />
-              <div className="container">
+              <div className="container main">
                 <Switch>
-                <Route path='/' component={ArticlePage} exact />
-                <Route path='/articles/:id?' component={ArticlePage} />
-                <Route
-                    path="/login/"
-                    render={() => (
-                      <LoginPage
-                        isLoggedIn={isLoggedIn}
-                        onLogin={this.onLogin}/>
-                    )}/>
+                  <Route path='/' component={ArticlePage} exact />
+                  <Route path='/articles/:id?' component={ArticlePage} />
+                  <Route
+                      path="/login/"
+                      render={() => (
+                        <LoginPage
+                          isLoggedIn={isLoggedIn}
+                          onLogin={this.onLogin}/>
+                      )}/>
 
-                <Route
-                    path="/join/"
-                    render={() => (
-                      <JoinPage
-                        isLoggedIn={isLoggedIn}
-                        onJoin={this.onJoin}/>
-                    )}/>
-                <Route
-                    path="/add/"
-                    render={() => (
-                      <ArticleAddPage
-                        onArticle={this.onArticle}/>
-                    )}/>
-                <Route render={() => <h2>Page not found</h2>} />
-              </Switch>
+                  <Route
+                      path="/join/"
+                      render={() => (
+                        <JoinPage
+                          isLoggedIn={isLoggedIn}
+                          onJoin={this.onJoin}/>
+                      )}/>
+                  <Route
+                      path="/add/"
+                      render={() => (
+                        <ArticleAddPage
+                          onArticle={this.onArticle}/>
+                      )}/>
+                  <Route render={() => <h2>Page not found</h2>} />
+                </Switch>
               </div>
+              <Footer isLoggedIn={isLoggedIn} />
             </div>
           </Router>
         </SwapiServiceProvider>

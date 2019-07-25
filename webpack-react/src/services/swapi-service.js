@@ -29,7 +29,8 @@ export default class SwapiService {
             created_at: article.created_at,
             announce_text: article.announce_text,
             url: article.url,
-            user: article.autor_name
+            user: article.autor_name,
+            text: article.text
         }
     }
     

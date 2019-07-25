@@ -60,11 +60,20 @@ h1, h2 {
 * {
   box-sizing: border-box;
   font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 a {
   color: #000;
 }
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
 
 body {
   color: #000;
@@ -77,6 +86,8 @@ body {
 .wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -84,6 +95,11 @@ body {
   margin: 0 auto;
   padding: 0 10px;
   max-width: 1164px;
+  min-width: 320px;
+}
+
+.container.main {
+  flex: 1 0 auto;
 }
 
 .logo a {
@@ -337,7 +353,7 @@ body {
 
 .popup {
   width: 100%;
-  max-width: 460px;
+  min-width: 460px;
   margin: 20px auto;
   padding: 30px;
   border-radius: 5px;
@@ -444,19 +460,26 @@ form textarea.input {
   padding: 0 0 5px;
 }
 
+.item-list .block:last-of-type {
+  border-bottom: none;
+}
+
 .item-list .block .title a {
   font-weight: 500;
   font-size: 28px;
   line-height: 36.4px;
   text-decoration: none;
+  text-transform: capitalize;
   transition: color .3s;
+  color: #487284;
 }
 
 .item-list .block .title a:hover {
-  color: #376F9A;
+  color: #548eaa;
 }
 
-.item-list .block .user-block {
+.item-list .block .user-block,
+.item-details .user-block {
   color: #548eaa;
   font-weight: 500;
   font-size: 13px;
@@ -464,16 +487,75 @@ form textarea.input {
   text-decoration: none;
 }
 
-.item-list .title-block {
+.item-list .title-block,
+.item-details .title-block {
   display: flex;
   align-items: center;
 }
 
-.item-list .post__time {
+.item-list .post__time,
+.item-details .post__time{
   color: #5f5f5f;
   font-weight: 500;
   font-size: 13px;
   margin: 0 0 0 8px;
   line-height: 16px;
   font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+}
+
+.item-details .text {
+  font-style: italic;
+  color: #222;
+  font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+  font-size: 16px;
+  line-height: 1.56;
+}
+
+.item-details .title {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36.4px;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: color .3s;
+  color: #487284;
+}
+
+.btn.btn-more {
+  border: 1px solid #75aeca;
+  background-color: transparent;
+  color: #548eaa;
+  display: inline-block;
+  margin: 10px 0 5px;
+  transition: color .3s, background-color .3s;
+}
+
+.btn.btn-more:hover {
+  background-color: #7aa1bd;
+  color: #fff;
+}
+
+.footer {
+  box-sizing: border-box;
+  border-top: 1px solid #d5dddf;
+  margin: 10px 0 0;
+  flex: 0 0 auto;
+}
+
+.footer .footer-menu {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+.footer-btn {
+  margin: 0 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #487284;
+  transition: color .3s;
+}
+
+.footer-btn:hover {
+  color: #548eaa;
 }

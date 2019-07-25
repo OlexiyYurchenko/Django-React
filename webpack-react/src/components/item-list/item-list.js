@@ -10,14 +10,9 @@ const ItemList = (props) => {
   const items = data.map((item) => {
     const { id, announce_text, user, created_at } = item;
     const label = renderLabel(item);
-    console.log()
-    
-    var date = new Date({created_at}.created_at);
-
 
     return (
       
-
       <div className="block" key={id}>
         <div className="title-block">
           <div className="user-block">{user}</div>
@@ -26,7 +21,8 @@ const ItemList = (props) => {
         <div className="title">
           <Link to={'/articles/' + id + '/'}>{label}</Link>
         </div>
-        <div className="text">{ announce_text }</div>
+        <div className="text">{ announce_text }...</div>
+        <Link className="btn btn-more" to={'/articles/' + id + '/'}>Читать дальше →</Link>
       </div>
     );
   });

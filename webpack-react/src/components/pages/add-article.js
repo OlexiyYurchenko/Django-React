@@ -14,12 +14,12 @@ export default class ArticleAddPage extends Component {
             <form onSubmit={onArticle}>
               <DjangoCSRFToken/>
               <div className="row">
-                <label htmlFor="title">title</label>
+                <label htmlFor="title">Title your post</label>
                 <input className="input" id="title" name="title" type="text" />
               </div>
 
               <div className="row">
-                <label htmlFor="text">text</label>
+                <label htmlFor="text">Text</label>
                 <textarea rows="10" className="input" id="text" name="text"  />
               </div>
       

@@ -57,20 +57,17 @@ export default class ItemDetails extends Component {
       return <span>Select a item from a list</span>;
     }
 
-    const { name } = item;
+    const { text, created_at, user, title } = item;
 
     return (
       <div className="item-details card">
-
         <div className="card-body">
-          <h4>{name}</h4>
-          <ul className="list-group list-group-flush">
-            {
-              React.Children.map(this.props.children, (child) => {
-                return React.cloneElement(child, { item });
-              })
-            }
-          </ul>
+          <div className="title-block">
+            <div className="user-block">{user}</div>
+            <span className="post__time">{created_at}</span>
+          </div>
+          <div className="title">{title}</div>
+          <div className="text">{text}</div>
         </div>
       </div>
     );

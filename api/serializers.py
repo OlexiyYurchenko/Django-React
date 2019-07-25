@@ -21,13 +21,16 @@ class ArticlePreviewSerializer(serializers.ModelSerializer):
 
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
-   class Meta:
-       model = Article
-       fields = [
-           'title',
-           'created_at',
-           'text',
-       ]
+    autor_name = serializers.ReadOnlyField(source='autor.username')
+    created_at = serializers.DateTimeField(format="%Y.%m.%d %H:%M")
+    class Meta:
+        model = Article
+        fields = [
+            'title',
+            'created_at',
+            'text',
+            'autor_name'
+        ]
 
 
 class UserPreviewSerializer(serializers.ModelSerializer):
