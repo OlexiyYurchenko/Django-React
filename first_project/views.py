@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from first_project.models import Menus, Product, Article
-from first_project.forms import ArticleForm
+from first_project.models import Menus, Product, Article, Like, Comment
+from first_project.forms import ArticleForm, CommentForm
 from django.contrib.auth import authenticate, login as native_login, logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -80,7 +80,6 @@ class Articles(View):
         form = ArticleForm(request.POST)
         if form.is_valid():
             post = Article(**form.cleaned_data)
-            print(post)
             post.announce_text = str(request.POST.get('text'))[:512]
             post.autor = request.user
             post.save()
@@ -133,3 +132,67 @@ class Login(View):
 
 class IndexView(TemplateView):
    template_name = 'first_project/api.html'
+
+class Comments(View):
+    def post(self, request):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            pk = request.POST.get('id')
+            article = Article.objects.get(pk=pk)
+            comments = Comment(**form.cleaned_data)
+            comments.user = request.user
+            comments.article = article
+            comments.save()
+            data = {
+                'result': 'succes',
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                'result': 'false'
+            }
+            return JsonResponse(data)
+
+def artikle_like(request, pk, val):
+    article = Article.objects.get(pk=pk)
+    try:
+        like = Like.objects.get(user=request.user.id, article=pk)
+
+        if like.val==1 and val==1:
+            like.val = 0
+            article.likes -= 1
+        elif like.val==1 and val==2:
+            like.val = 2
+            article.likes -= 1
+            article.dislikes += 1
+        elif like.val==2 and val==2:
+            like.val = 0
+            article.dislikes -= 1
+        elif like.val==2 and val==1:
+            like.val = 1
+            article.dislikes -= 1
+            article.likes += 1
+        elif like.val==0 and val==1:
+            like.val = 1
+            article.likes += 1
+        elif like.val==0 and val==2:
+            like.val = 2
+            article.dislikes += 1
+        article.save()
+        like.save()
+        data = {
+            'result': val,
+        }
+        return JsonResponse(data)
+    except Like.DoesNotExist:
+        if val==1:
+            article.likes += 1
+            Like(user=request.user, article=article, val=1).save()
+        else:
+            article.dislikes += 1
+            Like(user=request.user, article=article, val=2).save()
+        article.save()
+        data = {
+            'result': val,
+        }
+        return JsonResponse(data)

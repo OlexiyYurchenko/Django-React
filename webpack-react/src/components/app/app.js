@@ -19,10 +19,6 @@ export default class App extends Component {
   };
 
   
-  onToggleOpen = () => {
-    this.setState({OpenMenu: !this.state.OpenMenu })
-  };
-
   onUser = () => {
     const that = this;
     fetch('/userrr/', {

@@ -30,8 +30,10 @@ urlpatterns = [
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('goods/', article_views.sub, name='sub'),
-    path('add/', views.Articles.as_view(), name='add/'),
+    path('add/', views.Articles.as_view(), name='add'),
+    path('comment/', views.Comments.as_view(), name='comment'),
     path('userrr/', views.curent_user, name='user'),
+    path('artlike/<int:pk>/<int:val>', views.artikle_like, name='like'),
     path('', IndexView.as_view()),
     # path('goods/<int:pk>/', article_views.sub, name='sub'),
 ]

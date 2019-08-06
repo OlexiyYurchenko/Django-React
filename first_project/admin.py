@@ -4,5 +4,8 @@ from first_project.models import *
 admin.site.register(Menus) 
 admin.site.register(Product)
 admin.site.register(Article)
+admin.site.register(Like)
+admin.site.register(Comment)
+
 
  

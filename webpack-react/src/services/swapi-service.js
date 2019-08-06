@@ -30,7 +30,10 @@ export default class SwapiService {
             announce_text: article.announce_text,
             url: article.url,
             user: article.autor_name,
-            text: article.text
+            text: article.text,
+            likes: article.likes,
+            dislikes: article.dislikes,
+            comment: article.comment
         }
     }
     

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from first_project.models import Menus, Product
+from first_project.models import Menus, Product, Comment
 from django.contrib.auth.models import User
 from django.contrib.messages import warning
 from django.shortcuts import HttpResponse
@@ -11,6 +11,7 @@ from .serializers import *
 
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Article.objects.all()
+
 
     def get_serializer_class(self):
         if self.action == 'list':

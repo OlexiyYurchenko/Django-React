@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ErrorButton from '../error-button/error-button';
+import DjangoCSRFToken from 'django-react-csrftoken';
 
 import './item-details.css';
 
@@ -27,6 +28,29 @@ export default class ItemDetails extends Component {
     this.updateItem();
   }
 
+  
+  onLike = (id, val) => {
+    const that = this;
+    fetch(`/artlike/${id}/${val}`, {
+      method: 'GET'
+    }).then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.log('Looks like there was a problem. Status Code: ' +  
+            response.status);  
+          return;  
+        } else {
+          response.json().then(function(data) {  
+            console.log(data.result);
+            that.updateItem();
+          });  
+        }
+  
+      }  
+    )  
+    
+  };
+
   componentDidUpdate(prevProps) {
     if (
         this.props.itemId !== prevProps.itemId || 
@@ -50,14 +74,43 @@ export default class ItemDetails extends Component {
       });
   }
 
+  onComment = (event) => {
+    const that = this;
+    event.preventDefault();
+    const data = new FormData(event.target);
+    fetch(`/comment/`, {
+      method: 'POST',
+      body: data,
+    }).then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.log('Looks like there was a problem. Status Code: ' +  
+            response.status);  
+          return;  
+        } else {
+          response.json().then(function(data) {  
+            that.updateItem();
+          });  
+        }
+  
+      }  
+    )  
+    .catch(function(err) {  
+      console.log('Fetch Error :-S', err);  
+    });
+
+  };
+
+
   render() {
 
     const { item } = this.state;
+    
     if (!item) {
       return <span>Select a item from a list</span>;
     }
 
-    const { text, created_at, user, title } = item;
+    const { text, created_at, user, title, likes, dislikes, id, comment, isLoggedIn } = item;
 
     return (
       <div className="item-details card">
@@ -68,6 +121,42 @@ export default class ItemDetails extends Component {
           </div>
           <div className="title">{title}</div>
           <div className="text">{text}</div>
+          <div className="article-like" onClick={() => this.onLike(id, 1)}>like ({likes})</div>
+          <div className="article-like" onClick={() => this.onLike(id, 2)}>dislike ({dislikes})</div>
+          <div className="comment">
+            <div class="comments-section__head">
+              <h2 class="comments-section__head-title">
+                Комментарии
+                <span class="comments-section__head-counter"></span>
+              </h2>
+            </div>
+
+            <div class="comment-form">
+              <div class="comment-form__title">
+                <span class="comment-form__title-text">Написать комментарий</span>
+              </div>
+              <form onSubmit={this.onComment}>
+                <DjangoCSRFToken/>
+                <div className="row">
+                  <textarea className="input" id="text" name="text" type="text" cols="30" row="5"></textarea>
+                  <input  name="id" type="hidden" value={id}/>
+                </div>
+                <button>Send</button>
+              </form> 
+            </div>
+            
+            {
+              comment.map(item => 
+                <div className="card-body">
+                  <div className="title-block" key={item.id}>
+                    <div className="user-block">{item.autor_name}</div>
+                    <span className="post__time">{item.created_at}</span>
+                  </div>
+                  <div className="text">{item.text}</div>
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
     );
