@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from first_project.models import Menus, Product, Article, Like, Comment
-from first_project.forms import ArticleForm, CommentForm
+from first_project.models import *
+from django.contrib.auth.models import User
+from first_project.forms import ArticleForm, CommentForm, ProfileForm
 from django.contrib.auth import authenticate, login as native_login, logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -38,10 +39,15 @@ class Register(View):
             else:
                 user = User.objects.create_user(username, email, password)
             user.save()
-            send_mail('Register', 'You have successfully registered', 'lexa3938@gmail.com', [email])
+
+            
             native_login(request, user)
+            send_mail('Register', 'You have successfully registered', 'lexa3938@gmail.com', [email])
+            Profile(user=request.user).save()
+            user_avatar = '/static/first_project/no_avatar.svg'
             data = {
-                'result': 'success',
+                'user': username,
+                'user_avatar': user_avatar,
             }
             return JsonResponse(data)
         except IntegrityError:
@@ -68,12 +74,6 @@ def logout_view(request):
     return JsonResponse(data)
 
 
-def curent_user(request):
-    print(request.user)
-    data = {
-        'result': request.user,
-    }
-    return HttpResponse(data)
 
 class Articles(View):
     def post(self, request):
@@ -102,8 +102,15 @@ def logout_view(request):
 
 
 def curent_user(request):
+    user = Profile.objects.get(user=request.user)
+    
+    if user.photo:
+        user_avatar = '/static/first_project/mediafiles/' + str(user.photo)
+    else:
+        user_avatar = '/static/first_project/no_avatar.svg'
     data = {
-        'result': str(request.user),
+        'user': str(request.user),
+        'user_avatar': user_avatar,
     }
     return JsonResponse(data)
 
@@ -121,8 +128,14 @@ class Login(View):
 
         else:
             native_login(request, user)
+            user = Profile.objects.get(user=user)
+            if user.photo:
+                user_avatar = '/static/first_project/mediafiles/' + str(user.photo)
+            else:
+                user_avatar = '/static/first_project/no_avatar.svg'
             data = {
                 'result': username,
+                'user_avatar': user_avatar,
             }
             return JsonResponse(data)
 
@@ -194,5 +207,24 @@ def artikle_like(request, pk, val):
         article.save()
         data = {
             'result': val,
+        }
+        return JsonResponse(data)
+
+class EditUser(View):
+    def post(self, request):
+        
+        profile = Profile.objects.get(user=request.user)
+        avatar = request.FILES.get('file', False)
+        username = request.POST.get('name', False)
+        if username:
+            profile.user.username = username
+            profile.user.save()
+        if avatar:
+            profile.photo = avatar
+            profile.save()
+
+
+        data = {
+            'result': "str(avatar)",
         }
         return JsonResponse(data)

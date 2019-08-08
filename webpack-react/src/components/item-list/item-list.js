@@ -8,13 +8,14 @@ const ItemList = (props) => {
   const { data, onItemSelected, children: renderLabel } = props;
 
   const items = data.map((item) => {
-    const { id, announce_text, user, created_at } = item;
+    const { id, announce_text, user, created_at, photo_url } = item;
     const label = renderLabel(item);
 
     return (
       
       <div className="block" key={id}>
         <div className="title-block">
+          <img src={photo_url} alt={user} />
           <div className="user-block">{user}</div>
           <span class="post__time">{created_at}</span>
         </div>

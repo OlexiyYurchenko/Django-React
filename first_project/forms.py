@@ -1,5 +1,5 @@
 import django.forms as forms
-from first_project.models import Article, Comment
+from first_project.models import Article, Comment, Profile
 
 class ArticleForm(forms.ModelForm):
 
@@ -12,3 +12,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+
+
+class ProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('date_of_birth', 'photo')
+        

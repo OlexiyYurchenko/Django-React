@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../header';
 import Footer from '../footer';
 import SwapiService from '../../services/swapi-service';
-import { ArticlePage, LoginPage, JoinPage, ArticleAddPage } from '../pages';
+import { ArticlePage, LoginPage, JoinPage, ArticleAddPage, UserPage } from '../pages';
 import { SwapiServiceProvider} from '../swapi-service-context';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
@@ -15,13 +15,13 @@ export default class App extends Component {
     swapiService : new SwapiService(),
     isLoggedIn: false,
     UserName: false,
-    OpenMenu: false
+    OpenMenu: false,
+    UserAvatar: false
   };
-
   
   onUser = () => {
     const that = this;
-    fetch('/userrr/', {
+    fetch('/request/user/', {
       method: 'GET'
     }).then(  
       function(response) {  
@@ -34,7 +34,8 @@ export default class App extends Component {
             if(data.result != 'AnonymousUser') {
               that.setState({
                 isLoggedIn: true,
-                UserName: data.result
+                UserName: data.user,
+                UserAvatar: data.user_avatar
               });
             };
           });  
@@ -51,7 +52,7 @@ export default class App extends Component {
   onArticle = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('/add/', {
+    fetch('/request/add/', {
       method: 'POST',
       body: data,
     }).then(  
@@ -75,7 +76,7 @@ export default class App extends Component {
 
   onlogout = (e) => {
     e.preventDefault();
-    fetch('/logout/', {
+    fetch('/request/logout/', {
       method: 'GET'
     })
     this.setState({
@@ -87,7 +88,7 @@ export default class App extends Component {
     event.preventDefault();
     const that = this;
     const data = new FormData(event.target);
-    fetch('/login/', {
+    fetch('/request/login/', {
       method: 'POST',
       body: data,
     }).then(  
@@ -102,7 +103,8 @@ export default class App extends Component {
             if (data.result != 'error') {
               that.setState({
                 isLoggedIn: true,
-                UserName: data.result
+                UserName: data.result,
+                UserAvatar: data.user_avatar
               });
             }
           });  
@@ -119,7 +121,7 @@ export default class App extends Component {
     event.preventDefault();
     const that = this;
     const data = new FormData(event.target);
-    fetch('/join/', {
+    fetch('/request/join/', {
       method: 'POST',
       body: data,
     }).then(  
@@ -133,7 +135,9 @@ export default class App extends Component {
             console.log(data.result);
             if (data.result != 'error') {
               that.setState({
-                isLoggedIn: true
+                isLoggedIn: true,
+                UserName: data.user,
+                UserAvatar: data.user_avatar
               });
             }
           });  
@@ -155,12 +159,12 @@ export default class App extends Component {
   render() {
     
 
-    const { isLoggedIn, UserName, OpenMenu } = this.state;
+    const { isLoggedIn, UserName, OpenMenu, UserAvatar } = this.state;
     return (
         <SwapiServiceProvider value={this.state.swapiService}>
           <Router>
             <div className="wrapper">
-              <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} onlogout={this.onlogout}  />
+              <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} UserAvatar={UserAvatar} onlogout={this.onlogout}  />
               <div className="container main">
                 <Switch>
                   <Route path='/' component={ArticlePage} exact />
@@ -185,6 +189,11 @@ export default class App extends Component {
                       render={() => (
                         <ArticleAddPage
                           onArticle={this.onArticle}/>
+                      )}/>
+                  <Route
+                      path="/user/"
+                      render={() => (
+                        <UserPage />
                       )}/>
                   <Route render={() => <h2>Page not found</h2>} />
                 </Switch>

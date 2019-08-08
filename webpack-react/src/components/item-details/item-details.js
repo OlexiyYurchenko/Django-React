@@ -31,7 +31,7 @@ export default class ItemDetails extends Component {
   
   onLike = (id, val) => {
     const that = this;
-    fetch(`/artlike/${id}/${val}`, {
+    fetch(`/request/artlike/${id}/${val}`, {
       method: 'GET'
     }).then(  
       function(response) {  
@@ -78,7 +78,7 @@ export default class ItemDetails extends Component {
     const that = this;
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch(`/comment/`, {
+    fetch(`/request/comment/`, {
       method: 'POST',
       body: data,
     }).then(  
@@ -110,12 +110,13 @@ export default class ItemDetails extends Component {
       return <span>Select a item from a list</span>;
     }
 
-    const { text, created_at, user, title, likes, dislikes, id, comment, isLoggedIn } = item;
+    const { text, created_at, user, title, likes, dislikes, id, photo_url, comment, isLoggedIn } = item;
 
     return (
       <div className="item-details card">
         <div className="card-body">
           <div className="title-block">
+            <img src={photo_url} alt={item.autor_name} />
             <div className="user-block">{user}</div>
             <span className="post__time">{created_at}</span>
           </div>
@@ -149,6 +150,7 @@ export default class ItemDetails extends Component {
               comment.map(item => 
                 <div className="card-body">
                   <div className="title-block" key={item.id}>
+                    <img src={item.photo_url} alt={item.autor_name} />
                     <div className="user-block">{item.autor_name}</div>
                     <span className="post__time">{item.created_at}</span>
                   </div>

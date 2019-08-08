@@ -100,6 +100,7 @@ body {
 
 .container.main {
   flex: 1 0 auto;
+  width: 100%;
 }
 
 .logo a {
@@ -165,8 +166,17 @@ body {
 }
 
 .drop-menu .btn {
-  border: 1px solid #a4afba;
   cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+}
+
+.drop-menu .btn img {
+  max-width: 30px;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .drop-menu .drop-header {
@@ -354,6 +364,7 @@ body {
 .popup {
   width: 100%;
   min-width: 460px;
+  max-width: 460px;
   margin: 20px auto;
   padding: 30px;
   border-radius: 5px;
@@ -491,6 +502,13 @@ form textarea.input {
 .item-details .title-block {
   display: flex;
   align-items: center;
+}
+
+.item-list .title-block img,
+.item-details .title-block img {
+  max-width: 30px;
+  border-radius: 5px;
+  margin: 0 5px 0 0;
 }
 
 .item-list .post__time,
@@ -646,4 +664,12 @@ form textarea.input {
 
 .comment-form .row {
   padding: 0 0 10px;
+}
+
+input[type="file" i] {
+  opacity: 1;
+}
+
+input[type="file"] {
+  display: none;
 }

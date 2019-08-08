@@ -5,5 +5,7 @@ api/__pycache__/
 api/migrations/
 web_react/
 webpack-react/node_modules
+first_project/static/first_project/mediafiles/
+mediafiles/
 db.sqlite3
 manage.py

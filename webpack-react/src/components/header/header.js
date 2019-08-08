@@ -39,14 +39,19 @@ export default class JoinPage extends Component {
 
   render() {
 
-  const {isLoggedIn, UserName, onlogout} = this.props;
+  const {isLoggedIn, UserName, UserAvatar, onlogout} = this.props;
   const {showMenu} = this.state;
 
   let className = 'drop-menu';
+  let classNameAvatar = 'btn btn-menu';
 
 
   if(showMenu) {
     className += ' open';
+  }
+
+  if(!UserAvatar) {
+    classNameAvatar = 'btn btn-menu no-avatar';
   }
 
   if(isLoggedIn) {
@@ -62,12 +67,12 @@ export default class JoinPage extends Component {
 
             <div className={className}>
 
-                <div className="btn btn-menu" onClick={this.onToggleOpen}></div>
+                <div className={classNameAvatar} onClick={this.onToggleOpen}><img src={UserAvatar} alt={UserName} /></div>
                 <div className="drop-header">
-                  <div className="user">
+                  <Link className="user" to="/user/">
                     <span class="user-info__nickname">{UserName}</span>
                     <span class="user-info__special">Профиль</span>
-                  </div>
+                  </Link>
         
                     <Link className="login" to="/add/">
                       Add Post

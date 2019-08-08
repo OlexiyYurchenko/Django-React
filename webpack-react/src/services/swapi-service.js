@@ -33,7 +33,8 @@ export default class SwapiService {
             text: article.text,
             likes: article.likes,
             dislikes: article.dislikes,
-            comment: article.comment
+            photo_url: article.photo_url,
+            comment: article.comment,
         }
     }
     

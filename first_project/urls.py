@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from first_project import views, article_views
 from first_project.article_views import *
 from first_project.views import *
@@ -26,14 +26,17 @@ from django.contrib.auth.models import User
 
 urlpatterns = [
     # path('', views.home, name='home'),
-    path('join/', views.Register.as_view(), name='join'),
-    path('login/', views.Login.as_view(), name='login'),
-    path('logout/', views.logout_view, name='logout'),
     path('goods/', article_views.sub, name='sub'),
-    path('add/', views.Articles.as_view(), name='add'),
-    path('comment/', views.Comments.as_view(), name='comment'),
-    path('userrr/', views.curent_user, name='user'),
-    path('artlike/<int:pk>/<int:val>', views.artikle_like, name='like'),
-    path('', IndexView.as_view()),
+    
+    
+    path('request/comment/', views.Comments.as_view(), name='comment'),
+    path('request/artlike/<int:pk>/<int:val>', views.artikle_like, name='like'),
+    path('request/add/', views.Articles.as_view(), name='add'),
+    path('request/edituser/', views.EditUser.as_view()),
+    path('request/login/', views.Login.as_view(), name='login'),
+    path('request/logout/', views.logout_view, name='logout'),
+    path('request/join/', views.Register.as_view(), name='join'),
+    path('request/user/', views.curent_user, name='user'),
+    re_path('', IndexView.as_view()),
     # path('goods/<int:pk>/', article_views.sub, name='sub'),
 ]

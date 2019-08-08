@@ -2,8 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
 
 # Create your models here.
+
+
+
+
 
 
 class Menus(models.Model):
@@ -32,7 +37,7 @@ class Article(models.Model):
     text = models.TextField(_('text'), max_length=4096)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', null=True)
 
     def __str__(self):
         return self.title
@@ -55,7 +60,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comment')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comment', null=True)
     text = models.TextField(_('text'), max_length=4096)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
@@ -64,3 +69,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.article.title
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
+
+    def __str__(self):
+        return 'Profile for user {}'.format(self.user.username)
