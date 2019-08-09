@@ -122,8 +122,13 @@ export default class ItemDetails extends Component {
           </div>
           <div className="title">{title}</div>
           <div className="text">{text}</div>
-          <div className="article-like" onClick={() => this.onLike(id, 1)}>like ({likes})</div>
-          <div className="article-like" onClick={() => this.onLike(id, 2)}>dislike ({dislikes})</div>
+          <div className="post__footer">
+            <div className="rating">
+              <div className="article-like" onClick={() => this.onLike(id, 1)}><i className="icon-arrow-up"></i></div>
+                <span>{likes}</span>
+              <div className="article-like" onClick={() => this.onLike(id, 2)}><i className="icon-arrow-down"></i></div>
+            </div>
+          </div>
           <div className="comment">
             <div class="comments-section__head">
               <h2 class="comments-section__head-title">

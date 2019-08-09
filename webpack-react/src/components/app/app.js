@@ -157,13 +157,20 @@ export default class App extends Component {
 
 
   render() {
+
     
 
     const { isLoggedIn, UserName, OpenMenu, UserAvatar } = this.state;
+    let className = 'wrapper';
+
+    if (!isLoggedIn) {
+      className += ' guest'
+    }
+
     return (
         <SwapiServiceProvider value={this.state.swapiService}>
           <Router>
-            <div className="wrapper">
+            <div className={className}>
               <Header isLoggedIn={isLoggedIn} UserName={UserName} OpenMenu={OpenMenu} UserAvatar={UserAvatar} onlogout={this.onlogout}  />
               <div className="container main">
                 <Switch>
@@ -188,12 +195,13 @@ export default class App extends Component {
                       path="/add/"
                       render={() => (
                         <ArticleAddPage
-                          onArticle={this.onArticle}/>
+                          onArticle={this.onArticle} isLoggedIn={isLoggedIn} />
                       )}/>
                   <Route
                       path="/user/"
                       render={() => (
-                        <UserPage />
+                        <UserPage 
+                        UserName={UserName}  UserAvatar={UserAvatar} isLoggedIn={isLoggedIn} onUser={this.onUser} />
                       )}/>
                   <Route render={() => <h2>Page not found</h2>} />
                 </Switch>

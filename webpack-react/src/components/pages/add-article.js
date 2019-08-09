@@ -5,6 +5,12 @@ import DjangoCSRFToken from 'django-react-csrftoken';
 export default class ArticleAddPage extends Component {
 
   render() {
+      const { isLoggedIn } = this.props;
+
+      
+      if (!isLoggedIn) {
+        return <Redirect to="/"/>;
+      }
 
       const { onArticle } = this.props;
       return (

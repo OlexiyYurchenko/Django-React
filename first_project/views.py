@@ -225,6 +225,7 @@ class EditUser(View):
 
 
         data = {
-            'result': "str(avatar)",
+            'user': username,
+            'user_avatar': str(avatar),
         }
         return JsonResponse(data)
