@@ -9,3 +9,4 @@ first_project/static/first_project/mediafiles/
 mediafiles/
 db.sqlite3
 manage.py
+staticfiles/
