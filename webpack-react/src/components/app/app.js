@@ -175,7 +175,10 @@ export default class App extends Component {
               <div className="container main">
                 <Switch>
                   <Route path='/' component={ArticlePage} exact />
-                  <Route path='/articles/:id?' component={ArticlePage} />
+                  <Route path='/articles/:id?' 
+                      render={() => (
+                        <ArticlePage isLoggedIn={isLoggedIn}/> 
+                      )}/>
                   <Route
                       path="/login/"
                       render={() => (

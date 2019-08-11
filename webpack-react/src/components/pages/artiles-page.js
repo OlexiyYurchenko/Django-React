@@ -4,12 +4,13 @@ import Row from '../row';
 import { withRouter } from 'react-router-dom';
 
 
-const ArticlePage = ({ history, match }) => {
+const ArticlePage = ({ isLoggedIn, history, match }) => {
+
     const { id } = match.params;
     
     if (id != undefined) {
       return (
-        <ArticleDetails itemId={ id } />
+        <ArticleDetails itemId={ id } isLoggedIn={isLoggedIn} />
       )
     };
 

@@ -1,15 +1,10 @@
 import React from 'react';
-import ItemDetails, { Record } from '../item-details';
+import ItemDetails from '../item-details';
 import { withSwapiService } from '../hoc-helpers';
 
 const ArticleDetails = (props) => {
   return (
-    <ItemDetails {...props} >
-      <Record field="created_at" label="Data" />
-      <Record field="text" label="Text" />
-      <Record field="user" label="User" />
-      <Record field="title" label="Title" />
-    </ItemDetails>
+    <ItemDetails {...props} />
   );
 };
 
