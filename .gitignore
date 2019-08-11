@@ -1,4 +1,3 @@
-source/
 first_project/__pycache__/
 first_project/migrations/
 api/__pycache__/
@@ -8,5 +7,4 @@ webpack-react/node_modules
 first_project/static/first_project/mediafiles/
 mediafiles/
 db.sqlite3
-manage.py
 staticfiles/
