@@ -6,15 +6,16 @@
 	<meta charset="UTF-8">
 
 	<title>Демо проект</title>
-	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/5.0.0/normalize.css">
+	<link  href="https://necolas.github.io/normalize.css/5.0.0/normalize.css">
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<link rel="shortcut icon" type="image/png" href="{% static 'first_project/faviconka.ico' %}"/>
-	<link rel="stylesheet" type="text/css" href="{% static 'first_project/css.css' %}">
+	<link  type="text/css" href="{% static 'first_project/css.css' %}">
 	
 </head>
 <body>
 	{% csrf_token %}
-    <div id="app">wwwwwww</div>
+	
+    <div id="app">{{ static }}</div>
     <script src="{% static "first_project/app.js" %}"></script>
 </body>
 </html>

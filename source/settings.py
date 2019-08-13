@@ -126,15 +126,19 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR + '/staticfiles'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR + '/first_project/static/first_project/mediafiles'
-
-
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'lexa3938@gmail.com'
 EMAIL_HOST_PASSWORD = 'olexiy.yurchenko'
 EMAIL_PORT = 587
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR + '/staticfiles'
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR + '/mediafiles'
+
+
