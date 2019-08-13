@@ -6,4 +6,5 @@ web_react/
 webpack-react/node_modules
 first_project/static/first_project/mediafiles/
 mediafiles/
-staticfiles/
+db.sqlite3git 
+staticfiles/ 
