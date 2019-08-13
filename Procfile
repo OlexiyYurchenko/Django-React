@@ -1,1 +1,1 @@
-web: gunicorn score.wsgi:application
+web: gunicorn source.wsgi:application
