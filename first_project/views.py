@@ -105,7 +105,7 @@ def curent_user(request):
     user = Profile.objects.get(user=request.user)
     
     if user.photo:
-        user_avatar = '/static/mediafiles/' + str(user.photo)
+        user_avatar = str(user.photo.url)
     else:
         user_avatar = '/static/first_project/no_avatar.svg'
     data = {
