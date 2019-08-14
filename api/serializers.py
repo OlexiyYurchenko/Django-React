@@ -27,7 +27,7 @@ class CommentSerializer(serializers.ModelSerializer):
     def get_photo_url(self, com):
         photo_url = str(com.user.profile.photo)
         if photo_url:
-            user_avatar = '/static/first_project/mediafiles/' + photo_url
+            user_avatar = '/static/mediafiles/' + photo_url
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
@@ -79,7 +79,7 @@ class ArticlePreviewSerializer(serializers.ModelSerializer):
     def get_photo_url(self, art):
         photo_url = str(art.autor.profile.photo)
         if photo_url:
-            user_avatar = '/static/first_project/mediafiles/' + photo_url
+            user_avatar = '/static/mediafiles/' + photo_url
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
@@ -107,7 +107,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     def get_photo_url(self, art):
         photo_url = str(art.autor.profile.photo)
         if photo_url:
-            user_avatar = '/static/first_project/mediafiles/' + photo_url
+            user_avatar = '/static/mediafiles/' + photo_url
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
