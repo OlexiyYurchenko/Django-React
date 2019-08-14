@@ -130,7 +130,7 @@ class Login(View):
             native_login(request, user)
             user = Profile.objects.get(user=user)
             if user.photo:
-                user_avatar = '/static/first_project/mediafiles/' + str(user.photo)
+                user_avatar = '/mediafiles/' + str(user.photo)
             else:
                 user_avatar = '/static/first_project/no_avatar.svg'
             data = {

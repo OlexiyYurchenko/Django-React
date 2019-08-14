@@ -37,6 +37,6 @@ urlpatterns = [
     path('request/logout/', views.logout_view, name='logout'),
     path('request/join/', views.Register.as_view(), name='join'),
     path('request/user/', views.curent_user, name='user'),
-    path('', IndexView.as_view()),
+    re_path('', IndexView.as_view()),
     # path('goods/<int:pk>/', article_views.sub, name='sub'),
 ]
