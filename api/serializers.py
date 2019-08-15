@@ -25,9 +25,9 @@ class CommentSerializer(serializers.ModelSerializer):
             'photo_url'
         ]
     def get_photo_url(self, com):
-        photo_url = str(com.user.profile.photo)
+        photo_url = com.user.profile.image
         if photo_url:
-            user_avatar = '/static/mediafiles/' + photo_url
+            user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(photo_url) + '.jpg'
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
@@ -77,9 +77,9 @@ class ArticlePreviewSerializer(serializers.ModelSerializer):
             'photo_url'
         ]
     def get_photo_url(self, art):
-        photo_url = str(art.autor.profile.photo)
+        photo_url = art.autor.profile.image
         if photo_url:
-            user_avatar = '/static/mediafiles/' + photo_url
+            user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(photo_url) + '.jpg'
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
@@ -105,9 +105,9 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
             'comment',
         ]
     def get_photo_url(self, art):
-        photo_url = str(art.autor.profile.photo)
+        photo_url = art.autor.profile.image
         if photo_url:
-            user_avatar = '/static/mediafiles/' + photo_url
+            user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(photo_url) + '.jpg'
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar

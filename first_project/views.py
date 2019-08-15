@@ -13,8 +13,17 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Create your views here.
+
+cloudinary.config( 
+  cloud_name = "devblog12", 
+  api_key = "711264524717733", 
+  api_secret = "_RhErvar9-a1AB3nq7DpGd2bKic" 
+)
 
 
 def home(request):
@@ -103,9 +112,9 @@ def logout_view(request):
 
 def curent_user(request):
     user = Profile.objects.get(user=request.user)
-    
-    if user.photo:
-        user_avatar = str(user.photo.url)
+
+    if user.image:
+        user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(user.image) + '.jpg'
     else:
         user_avatar = '/static/first_project/no_avatar.svg'
     data = {
@@ -220,7 +229,7 @@ class EditUser(View):
             profile.user.username = username
             profile.user.save()
         if avatar:
-            profile.photo = avatar
+            profile.image = avatar
             profile.save()
 
 
