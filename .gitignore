@@ -5,6 +5,8 @@ api/migrations/
 web_react/
 webpack-react/node_modules
 first_project/static/first_project/mediafiles/
-mediafiles/
+mediafiles/users/
+source/__pycache__/
+source/migrations/
 db.sqlite3
 staticfiles/ 
