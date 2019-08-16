@@ -6,29 +6,6 @@ from django.conf import settings
 from cloudinary.models import CloudinaryField
 # Create your models here.
 
-
-
-
-
-
-class Menus(models.Model):
-    title = models.CharField(max_length=30)
-
-
-    def __str__(self):
-        return self.title 
-
-  
-class Product(models.Model):
-    gategory = models.ForeignKey(Menus, _('gategory'))
-    prise = models.IntegerField(_('prise'))
-    title = models.CharField(_('title'), max_length=25)
-    decs = models.TextField(_('decs'))
-    
-     
-    def __str__(self):
-        return self.title
-
  
 class Article(models.Model):
     title = models.CharField(_('title'), max_length=128)

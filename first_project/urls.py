@@ -15,20 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from first_project import views, article_views
-from first_project.article_views import *
+from first_project import views
 from first_project.views import *
-
-
-from django.contrib.auth.models import User
 
 
 
 urlpatterns = [
-    # path('', views.home, name='home'),
-    path('goods/', article_views.sub, name='sub'),
-    
-    
     path('request/comment/', views.Comments.as_view(), name='comment'),
     path('request/artlike/<int:pk>/<int:val>', views.artikle_like, name='like'),
     path('request/add/', views.Articles.as_view(), name='add'),
@@ -37,6 +29,5 @@ urlpatterns = [
     path('request/logout/', views.logout_view, name='logout'),
     path('request/join/', views.Register.as_view(), name='join'),
     path('request/user/', views.curent_user, name='user'),
-    re_path('', IndexView.as_view()),
-    # path('goods/<int:pk>/', article_views.sub, name='sub'),
+    re_path('', IndexView.as_view()), 
 ]

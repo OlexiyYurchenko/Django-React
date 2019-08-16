@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from first_project import views, article_views
+from first_project import views
 from api.views import *
 
 

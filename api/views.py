@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from first_project.models import Menus, Product, Comment
+from first_project.models import Comment
 from django.contrib.auth.models import User
 from django.contrib.messages import warning
 from django.shortcuts import HttpResponse
