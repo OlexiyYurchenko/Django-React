@@ -51,7 +51,7 @@ class Register(View):
 
             
             native_login(request, user)
-            send_mail('Register', 'You have successfully registered', 'lexa3938@gmail.com', [email])
+            # send_mail('Register', 'You have successfully registered', 'lexa3938@gmail.com', [email])
             Profile(user=request.user).save()
             user_avatar = '/static/first_project/no_avatar.svg'
             data = {
