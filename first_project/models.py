@@ -75,6 +75,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     image = CloudinaryField('image', null=True, blank=True)
+    text = models.TextField(_('text'), max_length=4096, blank=True)
 
 
     def __str__(self):
