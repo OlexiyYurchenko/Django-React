@@ -97,6 +97,8 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
