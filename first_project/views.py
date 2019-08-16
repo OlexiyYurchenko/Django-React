@@ -138,8 +138,8 @@ class Login(View):
         else:
             native_login(request, user)
             user = Profile.objects.get(user=user)
-            if user.photo:
-                user_avatar = '/static/mediafiles/' + str(user.photo)
+            if user.image:
+                user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(user.image) + '.jpg'
             else:
                 user_avatar = '/static/first_project/no_avatar.svg'
             data = {
