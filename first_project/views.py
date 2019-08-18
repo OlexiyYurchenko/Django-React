@@ -160,6 +160,7 @@ class Comments(View):
             pk = request.POST.get('id')
             article = Article.objects.get(pk=pk)
             comments = Comment(**form.cleaned_data)
+            print(comments.text)
             comments.user = request.user
             comments.article = article
             comments.save()

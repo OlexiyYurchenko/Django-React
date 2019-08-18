@@ -181,7 +181,8 @@ export default class ItemDetails extends Component {
                       <div className="user-block">{item.autor_name}</div>
                       <span className="post__time">{item.created_at}</span>
                     </div>
-                    <div className="text">{item.text}</div>
+                    <div className="text" dangerouslySetInnerHTML={{__html: item.text}} />
+
                   </div>
                 )
               }

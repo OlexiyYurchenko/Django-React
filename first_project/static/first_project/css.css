@@ -571,6 +571,7 @@ form textarea.input {
   font-size: 16px;
   line-height: 1.56;
   margin: 5px 0 0;
+  white-space: pre-wrap;
 }
 
 .item-details .title {
