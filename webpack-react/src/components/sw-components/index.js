@@ -1,4 +1,5 @@
 import ArticleDetails from './article-details';
+import ErrorForm from './error-form'
 
 import {
   ArticleList,
@@ -7,4 +8,5 @@ import {
 export {
   ArticleDetails,
   ArticleList,
+  ErrorForm
 };

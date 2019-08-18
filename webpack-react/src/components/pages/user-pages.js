@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DjangoCSRFToken from 'django-react-csrftoken';
+import { ErrorForm } from '../sw-components';
 
 import { Redirect } from 'react-router-dom';
 
@@ -7,37 +8,34 @@ export default class UserPage extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangeSpeed = this.onChangeSpeed.bind(this);
         this.state = {
             UserName: false,
             UserAvatar: false,
             file: '',
-            imagePreviewUrl: ''
+            imagePreviewUrl: '',
+            UserUnique: false,
+            ErrorServer: false
         };
     }
 
     _handleSubmit(e) {
         e.preventDefault();
+      };
+    
+    _handleImageChange(e) {
+  
+      let reader = new FileReader();
+      let file = e.target.files[0];
+  
+      reader.onloadend = () => {
+        this.setState({
+          file: file,
+          imagePreviewUrl: reader.result
+        });
       }
-    
-      _handleImageChange(e) {
-    
-        let reader = new FileReader();
-        let file = e.target.files[0];
-    
-        reader.onloadend = () => {
-          this.setState({
-            file: file,
-            imagePreviewUrl: reader.result
-          });
-        }
-    
-        reader.readAsDataURL(file)
-      }
-
-    onChangeSpeed(a, b) {
-        this.props.onUser()
-    }
+  
+      reader.readAsDataURL(file)
+    };
 
     onEdit = (event) => {
         event.preventDefault();
@@ -51,12 +49,24 @@ export default class UserPage extends Component {
             if (response.status !== 200) {  
                 console.log('Looks like there was a problem. Status Code: ' +  
                 response.status);  
+                that.setState({
+                  ErrorServer: true,
+                });
                 return;  
             } else {
+                
                 response.json().then(function(data) {  
-                console.log(data.user);
-                console.log(data.user_avatar);
-                that.onChangeSpeed(data.user, data.user_avatar)
+                if (data.user != 'error') {
+                  that.props.onUser();
+                  that.setState({
+                    UserUnique: false,
+                    ErrorServer: false,
+                  });
+                } else {
+                  that.setState({
+                    UserUnique: true,
+                  });
+                }
                 });  
             }
         
@@ -64,12 +74,22 @@ export default class UserPage extends Component {
         )  
         .catch(function(err) {  
             console.log('Fetch Error :-S', err);  
+            that.setState({
+              ErrorServer: true,
+            });
         });
+    };
+
+    onError = () => {
+      this.setState({
+        UserUnique: false,
+        ErrorServer: false
+      });
     };
 
   render() {
 
-    let {imagePreviewUrl} = this.state;
+    let {imagePreviewUrl, UserUnique, ErrorServer } = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl) {
         $imagePreview = (<img src={imagePreviewUrl} />);
@@ -84,30 +104,35 @@ export default class UserPage extends Component {
     }
 
     return (
-      <div className="popup">
-        
-        <div class="popup-box__title">Edit Profile</div>
-        <form onSubmit={this.onEdit} encType="multipart/form-data">
-            <DjangoCSRFToken/>
-            <div>
-                <div className="row">
-                    <label htmlFor="name">Name</label>
-                    <input className="input" id="name" name="name" type="text" />
-                </div>
-                <div className="row row-avatar">
-                    <label >Выберите файл</label>
-                    <div className="avatar-label">
-                        <label className="label-down" for="file-input">Upload Image<i className="icon-download"></i></label>
-                        <input className=""  id="file-input" type="file" name="file" multiple onChange={(e)=>this._handleImageChange(e)} />
-                    </div>
-                    <div className="imgPreview">
-                        {$imagePreview}
-                    </div>
-                </div>
-            </div>
-            <button>Send</button>
-        </form>
+      <div>
+        <ErrorForm UserUnique={UserUnique} ErrorServer={ErrorServer} onError={this.onError} />
+
+        <div className="popup">
+          
+          <div class="popup-box__title">Edit Profile</div>
+          <form onSubmit={this.onEdit} encType="multipart/form-data">
+              <DjangoCSRFToken/>
+              <div>
+                  <div className="row">
+                      <label htmlFor="name">Name</label>
+                      <input className="input" id="name" name="name" type="text"  minLength={5} maxLength={10} required />
+                  </div>
+                  <div className="row row-avatar">
+                      <label >Выберите файл</label>
+                      <div className="avatar-label">
+                          <label className="label-down" for="file-input">Upload Image<i className="icon-download"></i></label>
+                          <input className=""  id="file-input" type="file" name="file" multiple onChange={(e)=>this._handleImageChange(e)} />
+                      </div>
+                      <div className="imgPreview">
+                          {$imagePreview}
+                      </div>
+                  </div>
+              </div>
+              <button>Send</button>
+          </form>
+        </div>
       </div>
+
     );
   }
 };

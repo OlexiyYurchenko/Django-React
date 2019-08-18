@@ -82,8 +82,6 @@ def logout_view(request):
     }
     return JsonResponse(data)
 
-
-
 class Articles(View):
     def post(self, request):
         form = ArticleForm(request.POST)
@@ -111,16 +109,19 @@ def logout_view(request):
 
 
 def curent_user(request):
-    user = Profile.objects.get(user=request.user)
-
-    if user.image:
-        user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(user.image) + '.jpg'
+    if request.user.is_anonymous:
+        data = {'result': str(request.user)}
     else:
-        user_avatar = '/static/first_project/no_avatar.svg'
-    data = {
-        'user': str(request.user),
-        'user_avatar': user_avatar,
-    }
+        user = Profile.objects.get(user=request.user)
+        if user.image:
+            user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(user.image) + '.jpg'
+        else:
+            user_avatar = '/static/first_project/no_avatar.svg'
+        data = {
+            'user': str(request.user),
+            'user_avatar': user_avatar,
+        }
+
     return JsonResponse(data)
 
 class Login(View):
@@ -147,9 +148,6 @@ class Login(View):
                 'user_avatar': user_avatar,
             }
             return JsonResponse(data)
-
-    def get(self, request):
-        return render(request, 'first_project/login.html', {})
 
 
 class IndexView(TemplateView):
@@ -226,8 +224,14 @@ class EditUser(View):
         avatar = request.FILES.get('file', False)
         username = request.POST.get('name', False)
         if username:
-            profile.user.username = username
-            profile.user.save()
+            try:
+                profile.user.username = username
+                profile.user.save()
+            except:
+                data = {
+                    'user': 'error',
+                }
+                return JsonResponse(data)
         if avatar:
             profile.image = avatar
             profile.save()

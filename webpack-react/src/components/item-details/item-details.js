@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import ErrorButton from '../error-button/error-button';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import { Link } from 'react-router-dom';
+import { ErrorForm } from '../sw-components';
+
 
 import './item-details.css';
 
@@ -22,12 +23,19 @@ export {
 export default class ItemDetails extends Component {
 
   state = {
-    item: null
+    item: null,
+    ErrorServer: false
   };
 
   componentDidMount() {
     this.updateItem();
   }
+
+  onError = () => {
+    this.setState({
+      ErrorServer: false
+    });
+  };
 
   
   onLike = (id, val) => {
@@ -39,6 +47,9 @@ export default class ItemDetails extends Component {
         if (response.status !== 200) {  
           console.log('Looks like there was a problem. Status Code: ' +  
             response.status);  
+          that.setState({
+            ErrorServer: true,
+          });
           return;  
         } else {
           response.json().then(function(data) {  
@@ -87,6 +98,9 @@ export default class ItemDetails extends Component {
         if (response.status !== 200) {  
           console.log('Looks like there was a problem. Status Code: ' +  
             response.status);  
+          that.setState({
+            ErrorServer: true,
+          });
           return;  
         } else {
           response.json().then(function(data) {  
@@ -98,6 +112,9 @@ export default class ItemDetails extends Component {
     )  
     .catch(function(err) {  
       console.log('Fetch Error :-S', err);  
+      that.setState({
+        ErrorServer: true,
+      });
     });
 
   };
@@ -105,7 +122,7 @@ export default class ItemDetails extends Component {
 
   render() {
 
-    const { item } = this.state;
+    const { item, ErrorServer } = this.state;
     
     if (!item) {
       return <span>Select a item from a list</span>;
@@ -118,6 +135,7 @@ export default class ItemDetails extends Component {
     if(isLoggedIn){
       return (
         <div className="item-details card">
+          <ErrorForm ErrorServer={ErrorServer} onError={this.onError} />
           <div className="card-body">
             <div className="title-block">
               <img src={photo_url} alt={item.autor_name} />
@@ -148,7 +166,7 @@ export default class ItemDetails extends Component {
                 <form onSubmit={this.onComment}>
                   <DjangoCSRFToken/>
                   <div className="row">
-                    <textarea className="input" id="text" name="text" type="text" cols="30" row="5"></textarea>
+                    <textarea className="input" id="text" name="text" type="text" cols="30" row="5"  required ></textarea>
                     <input  name="id" type="hidden" value={id}/>
                   </div>
                   <button>Send</button>

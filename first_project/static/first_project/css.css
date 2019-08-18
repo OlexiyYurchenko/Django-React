@@ -811,3 +811,35 @@ input[type="file" i]:focus,
 input[type="file" i]:active {
   outline-offset: 0px!important;
 }
+
+.popup.popup-error {
+  padding: 15px;
+  background-color: #ffdce0;
+  color: #86181d;
+}
+
+.popup-error .flash-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup.popup-error button {
+  all: unset;
+  font-size: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.popup.popup-error button svg {
+  fill: #86181d;
+}
+
+.popup-error .flash-error {
+  position: relative;
+}
+
+.popup-error .flash-error:before {
+  content: '';
+  display: block;
+}
