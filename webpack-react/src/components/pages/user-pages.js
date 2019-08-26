@@ -115,7 +115,7 @@ export default class UserPage extends Component {
               <div>
                   <div className="row">
                       <label htmlFor="name">Name</label>
-                      <input className="input" id="name" name="name" type="text"  minLength={5} maxLength={10} required />
+                      <input className="input" id="name" name="name" type="text"  minLength={5} maxLength={10}  />
                   </div>
                   <div className="row row-avatar">
                       <label >Выберите файл</label>
