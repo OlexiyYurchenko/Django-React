@@ -406,7 +406,7 @@ body {
 
 .popup {
   width: 100%;
-  min-width: 320px;
+  min-width: 290px;
   max-width: 460px;
   margin: 20px auto;
   padding: 30px;
