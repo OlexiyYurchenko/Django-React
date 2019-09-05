@@ -130,7 +130,7 @@ export default class ItemDetails extends Component {
 
     const {isLoggedIn} = this.props;
 
-    const { text, created_at, user, title, likes, dislikes, id, photo_url, comment } = item;
+    const { text, created_at, user, title, likes, dislikes, id, photo_url, pk_user, comment } = item;
 
     if(isLoggedIn){
       return (
@@ -139,7 +139,9 @@ export default class ItemDetails extends Component {
           <div className="card-body">
             <div className="title-block">
               <img src={photo_url} alt={item.autor_name} />
-              <div className="user-block">{user}</div>
+              <Link className="user-block" to={'/user/' + pk_user + '/'}>
+                {user}
+              </Link>
               <span className="post__time">{created_at}</span>
             </div>
             <div className="title">{title}</div>

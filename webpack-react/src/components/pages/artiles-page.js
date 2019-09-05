@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArticleDetails, ArticleList } from '../sw-components';
+import { ArticleDetails, ArticleList, ArticleUserDetails } from '../sw-components';
 import Row from '../row';
 import { withRouter } from 'react-router-dom';
 
@@ -7,6 +7,12 @@ import { withRouter } from 'react-router-dom';
 const ArticlePage = ({ isLoggedIn, history, match }) => {
 
     const { id } = match.params;
+
+    if ( match.path == '/user/:id?') {
+      return (
+        <ArticleUserDetails itemId={ id } />
+      )
+    }
     
     if (id != undefined) {
       return (
@@ -19,5 +25,5 @@ const ArticlePage = ({ isLoggedIn, history, match }) => {
     );
 };
 
-export default withRouter(ArticlePage);
+export default withRouter(ArticlePage); 
 

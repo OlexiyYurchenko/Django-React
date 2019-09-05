@@ -87,7 +87,7 @@ export default class App extends Component {
                   <Route path='/articles/:id?' 
                       render={() => (
                         <ArticlePage isLoggedIn={isLoggedIn}/> 
-                      )}/>
+                      )}/> 
                   <Route
                       path="/login/"
                       render={() => (
@@ -110,11 +110,18 @@ export default class App extends Component {
                           isLoggedIn={isLoggedIn} />
                       )}/>
                   <Route
+                      exact
                       path="/user/"
                       render={() => (
                         <UserPage 
-                        UserName={UserName}  UserAvatar={UserAvatar} isLoggedIn={isLoggedIn} onUser={this.onUser} />
+                        UserName={UserName}  UserAvatar={UserAvatar} isLoggedIn={isLoggedIn} onUser={this.onUser}  />
                       )}/>
+                  <Route
+                      exact
+                      path="/user/:id?"
+                      render={() => (
+                        <ArticlePage /> 
+                      )}/> 
                   <Route render={() => <h2>Page not found</h2>} />
                 </Switch>
               </div>

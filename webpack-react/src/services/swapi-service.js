@@ -14,12 +14,19 @@ export default class SwapiService {
 
     getAllArticle = async () => {
         const res = await this.getResource(`/articles/`);
+
         return res.map(this._transformArticle);
     }
 
     getArticle = async (id) => {
-        const person = await this.getResource(`/articles/${id}/`);
-        return this._transformArticle(person);
+        const articles = await this.getResource(`/articles/${id}/`);
+        return this._transformArticle(articles);
+    }
+
+    getArticleUser = async (id) => {
+        const user = await this.getResource(`/user/${id}/`);
+        return user.user.map(this._transformArticle);
+        // return this._transformUserArticle(user);
     }
 
     _transformArticle = (article) => {
@@ -35,6 +42,24 @@ export default class SwapiService {
             dislikes: article.dislikes,
             photo_url: article.photo_url,
             comment: article.comment,
+            pk_user: article.pk_user
+        }
+    }
+
+    _transformUserArticle = (article) => {
+        return {
+            id: article.id,
+            title: article.title,
+            created_at: article.created_at,
+            announce_text: article.announce_text,
+            url: article.url,
+            user: article.autor_name,
+            text: article.text,
+            likes: article.likes,
+            dislikes: article.dislikes,
+            photo_url: article.photo_url,
+            comment: article.comment,
+            article_user: article.user
         }
     }
     
