@@ -20,7 +20,7 @@ const withData = (View) => {
     componentDidMount() {
       this.update();
     }
- 
+
     update() {
       this.setState( {
         loading: true,
@@ -28,7 +28,6 @@ const withData = (View) => {
       });
       this.props.getData()
       .then((data) => {
-
         this.setState({
           data,
           loading: false

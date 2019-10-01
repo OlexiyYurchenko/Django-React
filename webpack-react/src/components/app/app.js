@@ -49,6 +49,31 @@ export default class App extends Component {
   };
 
 
+  onArticle = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    fetch('/request/add/', {
+      method: 'POST',
+      body: data,
+    }).then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.log('Looks like there was a problem. Status Code: ' +  
+            response.status);  
+          return;  
+        } else {
+          response.json().then(function(data) {  
+            console.log(data.result);
+          });  
+        }
+  
+      }  
+    )  
+    .catch(function(err) {  
+      console.log('Fetch Error :-S', err);  
+    });
+  };
+
   onlogout = (e) => {
     e.preventDefault();
     fetch('/request/logout/', {
@@ -56,6 +81,72 @@ export default class App extends Component {
     })
     this.setState({
       isLoggedIn: false
+    });
+  };
+
+  onLogin = (event) => {
+    event.preventDefault();
+    const that = this;
+    const data = new FormData(event.target);
+    fetch('/request/login/', {
+      method: 'POST',
+      body: data,
+    }).then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.log('Looks like there was a problem. Status Code: ' +  
+            response.status);  
+          return;  
+        } else {
+          response.json().then(function(data) {  
+            console.log(data.result);
+            if (data.result != 'error') {
+              that.setState({
+                isLoggedIn: true,
+                UserName: data.result,
+                UserAvatar: data.user_avatar
+              });
+            }
+          });  
+        }
+  
+      }  
+    )  
+    .catch(function(err) {  
+      console.log('Fetch Error :-S', err);  
+    });
+  };
+
+  onJoin = (event) => {
+    event.preventDefault();
+    const that = this;
+    const data = new FormData(event.target);
+    fetch('/request/join/', {
+      method: 'POST',
+      body: data,
+    }).then(  
+      function(response) {  
+        if (response.status !== 200) {  
+          console.log('Looks like there was a problem. Status Code: ' +  
+            response.status);  
+          return;  
+        } else {
+          response.json().then(function(data) {  
+            console.log(data.result);
+            if (data.result != 'error') {
+              that.setState({
+                isLoggedIn: true,
+                UserName: data.user,
+                UserAvatar: data.user_avatar
+              });
+            }
+          });  
+        }
+  
+      }  
+    )  
+    .catch(function(err) {  
+      console.log('Fetch Error :-S', err);  
     });
   };
 
@@ -87,13 +178,13 @@ export default class App extends Component {
                   <Route path='/articles/:id?' 
                       render={() => (
                         <ArticlePage isLoggedIn={isLoggedIn}/> 
-                      )}/> 
+                      )}/>
                   <Route
                       path="/login/"
                       render={() => (
                         <LoginPage
                           isLoggedIn={isLoggedIn}
-                          onUser={this.onUser}/>
+                          onLogin={this.onLogin}/>
                       )}/>
 
                   <Route
@@ -101,27 +192,21 @@ export default class App extends Component {
                       render={() => (
                         <JoinPage
                           isLoggedIn={isLoggedIn}
-                          onUser={this.onUser}/>
+                          onJoin={this.onJoin}/>
                       )}/>
                   <Route
                       path="/add/"
                       render={() => (
                         <ArticleAddPage
-                          isLoggedIn={isLoggedIn} />
+                          onArticle={this.onArticle} isLoggedIn={isLoggedIn} />
                       )}/>
+                  <Route path='/user/:id?/' render={() => <h2>sss</h2>}  />
                   <Route
-                      exact
-                      path="/user/"
+                      path='/user/'
                       render={() => (
                         <UserPage 
-                        UserName={UserName}  UserAvatar={UserAvatar} isLoggedIn={isLoggedIn} onUser={this.onUser}  />
+                        UserName={UserName}  UserAvatar={UserAvatar} isLoggedIn={isLoggedIn} onUser={this.onUser} exact />
                       )}/>
-                  <Route
-                      exact
-                      path="/user/:id?"
-                      render={() => (
-                        <ArticlePage /> 
-                      )}/> 
                   <Route render={() => <h2>Page not found</h2>} />
                 </Switch>
               </div>

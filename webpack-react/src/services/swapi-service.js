@@ -24,9 +24,9 @@ export default class SwapiService {
     }
 
     getArticleUser = async (id) => {
-        const user = await this.getResource(`/user/${id}/`);
-        return user.user.map(this._transformArticle);
-        // return this._transformUserArticle(user);
+        const user = await this.getResource(`/user/1/`);
+        // return user.user.map(this._transformArticle);
+        return this._transformUserArticle(user); 
     }
 
     _transformArticle = (article) => {
@@ -49,16 +49,7 @@ export default class SwapiService {
     _transformUserArticle = (article) => {
         return {
             id: article.id,
-            title: article.title,
-            created_at: article.created_at,
-            announce_text: article.announce_text,
-            url: article.url,
-            user: article.autor_name,
-            text: article.text,
-            likes: article.likes,
-            dislikes: article.dislikes,
-            photo_url: article.photo_url,
-            comment: article.comment,
+            username: article.username,
             article_user: article.user
         }
     }
