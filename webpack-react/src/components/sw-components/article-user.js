@@ -1,8 +1,7 @@
 import React from 'react';
 // import UserItemList from '../item-list';
-import ItemListUser from '../item-list';
+import ItemListUser from '../item-list/item-list-user';
 
-// import { withData, withSwapiService, withChildFunction, compose } from '../hoc-helpers';
 
 import { withSwapiService } from '../hoc-helpers';
 
@@ -25,6 +24,7 @@ const mapMethodsToProps = (swapiService) => {
 
 export default  withSwapiService(mapMethodsToProps)(ArticleUserDetails);
 
+// import { withData, withSwapiService, withChildFunction, compose } from '../hoc-helpers';
 
   
 // const renderName = ({ title }) => <span>{title}</span>;
@@ -35,14 +35,14 @@ export default  withSwapiService(mapMethodsToProps)(ArticleUserDetails);
 
 //     }
 // };
- 
+
 
 
 // const ArticleUserDetails = compose(
 //                       withSwapiService(mapArticleMethodsToProps),
 //                       withData,
 //                       withChildFunction(renderName)
-//                     )(ItemList);
+//                     )(ItemListUser);
 
 
 

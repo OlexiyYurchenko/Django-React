@@ -39,7 +39,7 @@ export default class JoinPage extends Component {
 
   render() {
 
-  const {isLoggedIn, UserName, UserAvatar, onlogout} = this.props;
+  const {isLoggedIn, UserName, UserAvatar, UserId, onlogout} = this.props;
   const {showMenu} = this.state;
 
   let className = 'drop-menu';
@@ -69,7 +69,7 @@ export default class JoinPage extends Component {
 
                 <div className={classNameAvatar} onClick={this.onToggleOpen}><img src={UserAvatar} alt={UserName} /></div>
                 <div className="drop-header">
-                  <Link className="user" to="/user/">
+                  <Link className="user" to={`/user/${UserId}/`}>
                     <span class="user-info__nickname">{UserName}</span>
                     <span class="user-info__special">Профиль</span>
                   </Link>

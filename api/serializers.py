@@ -76,7 +76,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
         model = Article
         fields = [
             'id',
-            'title',
+            'title', 
             'created_at',
             'text',
             'autor_name',
@@ -109,16 +109,19 @@ class UserPreviewSerializer(serializers.ModelSerializer):
 class UserDetailSerializer(serializers.ModelSerializer):
     photo_url = serializers.SerializerMethodField()
     user = ArticlePreviewSerializer(required=False, many=True)
+    comment = CommentSerializer(required=False, many=True)
 
     class Meta:
         model = User
         fields = [
+            'id',
             'username',
             'email',
             'is_staff',
             'profile',
             'photo_url',
-            'user'
+            'user',
+            'comment'
         ]
 
     def get_photo_url(self, art):

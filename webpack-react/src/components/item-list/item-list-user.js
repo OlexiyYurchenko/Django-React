@@ -1,41 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Spinner from '../spinner';
+import Items from './items';
+import UserInfo from '../user-info';
 import { Link } from 'react-router-dom';
 
 import './item-list.css';
 
-const ItemListUser = (props) => {
+export default class ItemListUser extends Component {
 
-  const { data, onItemSelected, children: renderLabel } = props;
-  console.log(data);
+  state = {
+    data: null,
+    loading: true,
+    ErrorServer: false
+  };
 
-  const items = data.article_user.map((item) => {
-    const { id, announce_text, user, created_at, photo_url, pk_user } = item;
-    const label = renderLabel(item);
+  componentDidMount() {
+    this.updateItem();
+  } 
+
+  updateItem() {
+    const { itemId, getData } = this.props;
+    if (!itemId) {
+      return;
+    }
+    getData(itemId)
+      .then((itemd) => {
+
+        this.setState({
+          data: itemd,
+          loading: false,
+        });
+      }); 
+  };
+
+  render() {
+
+    const { data, loading } = this.state;
+    const { UserId } = this.props;
+
+    if (loading) {
+      return <Spinner />;
+    }
 
     return (
-      
-      <div className="block" key={id}> 
-        <div className="title-block">
-          <img src={photo_url} alt={user} />
-          <Link className="user-block" to={'/user/' + pk_user + '/'}>
-            {user}
-          </Link>
-          <span class="post__time">{created_at}</span>
-        </div>
-        <div className="title">
-          <Link to={'/articles/' + id + '/'}>{label}</Link>
-        </div>
-        <div className="text">{ announce_text }...</div>
-        <Link className="btn btn-more" to={'/articles/' + id + '/'}>Читать дальше →</Link>
+      <div>
+        <UserInfo UserId={UserId} UserProfile={data} />
+        <ul className="item-list list-group">
+          <Items data={data.article_user} />
+        </ul>
       </div>
     );
-  });
-
-  return (
-    <ul className="item-list list-group">
-      {items}
-    </ul>
-  );
+  };
 };
 
 ItemListUser.defaultProps = {
@@ -49,4 +64,4 @@ ItemListUser.defaultProps = {
 // };
 
 
-export default ItemListUser;
+// export default ItemListUser;

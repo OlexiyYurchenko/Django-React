@@ -853,3 +853,42 @@ input[type="file" i]:active {
   content: '';
   display: block;
 }
+
+.user-info img {
+  max-width: 80px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px;
+}
+
+.user-info .settings-btn {
+  background-color: #7aa1bd;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+  transition: background-color .3s;
+}
+
+.user-info .settings-btn:hover {
+  background-color: #8fb3cd;
+}
+
+.user-info__fullname {
+    color: #343434;
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+}
+
+.user-info__specialization {
+  margin: 4px 0 10px;
+  color: #343434;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+}

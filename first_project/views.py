@@ -120,6 +120,7 @@ def curent_user(request):
         data = {
             'user': str(request.user),
             'user_avatar': user_avatar,
+            'id': request.user.id
         }
 
     return JsonResponse(data)
