@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../header';
 import Footer from '../footer';
 import SwapiService from '../../services/swapi-service';
-import { ArticlePage, LoginPage, JoinPage, ArticleAddPage, UserPage } from '../pages';
+import { ArticlePage, LoginPage, JoinPage, ArticleAddPage, UserPage, UsersPage } from '../pages';
 import { SwapiServiceProvider} from '../swapi-service-context';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
@@ -65,11 +65,7 @@ export default class App extends Component {
     this.onUser()
   }
 
-
-
   render() {
-
-    
 
     const { isLoggedIn, UserName, OpenMenu, UserAvatar, UserId } = this.state;
     let className = 'wrapper';
@@ -121,8 +117,9 @@ export default class App extends Component {
                   <Route
                       path="/user/:id?"
                       render={() => (
-                        <ArticlePage UserId={UserId} /> 
+                        <ArticlePage UserId={UserId} isLoggedIn={isLoggedIn} /> 
                       )}/> 
+                  <Route path='/users/' component={UsersPage} exact />
                   <Route render={() => <h2>Page not found</h2>} />
                 </Switch>
               </div>

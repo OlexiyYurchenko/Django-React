@@ -193,6 +193,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-left: 10px;
+  display: inline-block;
 }
 
 .btn.join {
@@ -215,6 +216,7 @@ body {
 
 .drop-menu {
   position: relative;
+  margin: 0 0 0 10px;
 }
 
 .drop-menu .btn {
@@ -883,6 +885,7 @@ input[type="file" i]:active {
     font-weight: 500;
     font-size: 18px;
     font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+    text-transform: capitalize;
 }
 
 .user-info__specialization {
@@ -891,4 +894,77 @@ input[type="file" i]:active {
   font-size: 14px;
   line-height: 20px;
   font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+}
+
+.tabs {
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  border-bottom: 1px solid #d5dddf;
+  list-style: none;
+}
+
+.tabs .tabs-menu__item {
+    margin: 0 15px -1px 0;
+    border-bottom: 2px solid transparent;
+    color: #6f7577;
+    vertical-align: middle;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: .8px;
+    font-size: 14px;
+    font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+    padding: 10px 0 ;
+    cursor: pointer;
+}
+
+.tabs .tabs-menu__item .count {
+  color: #4d80aa;
+}
+
+.tabs .tabs-menu__item.active {
+  border-color: #77a8d0;
+  color: #4d80aa;
+}
+
+.header-user {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 0 0 10px;
+  border-bottom: 1px solid #DBDBDB;
+  color: #6f7577;
+  font-size: 16px;
+  font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+  letter-spacing: .8px;
+  font-weight: 600;
+}
+
+.item-list .block.block-user .btn.btn-more {
+  margin: 0 0 0 7px;
+  padding: 2px 4px;
+}
+
+.item-list .block.block-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-list .block.block-user .count {
+  width: 65px;
+  text-align: center;
+  margin: 0 10px 0;
+  color: #4d80aa;
+  font-size: 16px;
+  font-family: "-apple-system",BlinkMacSystemFont,Arial,sans-serif;
+  letter-spacing: .8px;
+}
+
+@media screen and (max-width: 400px) {
+  .header .nav .btn {
+    padding: 6px 8px;
+  }
 }

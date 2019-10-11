@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import DjangoCSRFToken from 'django-react-csrftoken';
 import { Link } from 'react-router-dom';
 import { ErrorForm } from '../sw-components';
-
+import Spinner from '../spinner';
+import Comments from '../comment';
 
 import './item-details.css';
 
@@ -24,7 +25,8 @@ export default class ItemDetails extends Component {
 
   state = {
     item: null,
-    ErrorServer: false
+    ErrorServer: false,
+    loading: true,
   };
 
   componentDidMount() {
@@ -80,7 +82,8 @@ export default class ItemDetails extends Component {
     getData(itemId)
       .then((item) => {
         this.setState({
-          item
+          item: item,
+          loading: false
         });
       });
   }
@@ -121,24 +124,26 @@ export default class ItemDetails extends Component {
 
   render() {
 
-    const { item, ErrorServer } = this.state;
+    const { item, ErrorServer, loading } = this.state;
+    const {isLoggedIn} = this.props;
+
+    if (loading) {
+      return <Spinner />;
+    }
     
     if (!item) {
       return <span>Select a item from a list</span>;
     }
 
-    const {isLoggedIn} = this.props;
-
     const { text, created_at, autor_name, title, likes, dislikes, id, photo_url, pk_user, comment } = item;
 
-    if(isLoggedIn){
       return (
         <div className="item-details card">
           <ErrorForm ErrorServer={ErrorServer} onError={this.onError} />
           <div className="card-body">
             <div className="title-block">
               <img src={photo_url} alt={item.autor_name} />
-              <Link className="user-block" to={'/user/' + pk_user + '/'}>
+              <Link className="user-block" to={`/user/${pk_user}/`}>
                 {autor_name}
               </Link>
               <span className="post__time">{created_at}</span>
@@ -164,79 +169,28 @@ export default class ItemDetails extends Component {
                 <div class="comment-form__title">
                   <span class="comment-form__title-text">Написать комментарий</span>
                 </div>
-                <form onSubmit={this.onComment}>
-                  <DjangoCSRFToken/>
-                  <div className="row">
-                    <textarea className="input" id="text" name="text" type="text" cols="30" row="5"  required ></textarea>
-                    <input  name="id" type="hidden" value={id}/>
-                  </div>
-                  <button>Send</button>
-                </form> 
-              </div>
-              
-              {
-                comment.map(item => 
-                  <div className="card-body">
-                    <div className="title-block" key={item.id}>
-                      <img src={item.photo_url} alt={item.autor_name} />
-                      <div className="user-block">{item.autor_name}</div>
-                      <span className="post__time">{item.created_at}</span>
-                    </div>
-                    <div className="text" dangerouslySetInnerHTML={{__html: item.text}} />
 
-                  </div>
-                )
-              }
+                  {isLoggedIn ? (
+
+                    <form onSubmit={this.onComment}>
+                      <DjangoCSRFToken/>
+                      <div className="row">
+                        <textarea className="input" id="text" name="text" type="text" cols="30" row="5"  required ></textarea>
+                        <input  name="id" type="hidden" value={id}/>
+                      </div>
+                      <button>Send</button>
+                    </form>
+                  ) : (null)}
+
+              </div>
+
+              <Comments data={comment} />
+
             </div>
           </div>
         </div>
       );
-    } 
 
-    return (
-      <div className="item-details card">
-        <div className="card-body">
-          <div className="title-block">
-            <img src={photo_url} alt={item.autor_name} />
-            <div className="user-block">{user}</div>
-            <span className="post__time">{created_at}</span>
-          </div>
-          <div className="title">{title}</div>
-          <div className="text">{text}</div>
-          <div className="post__footer">
-            <div className="rating">
-              <Link className="article-like" to="/login/">
-                <i className="icon-arrow-up"></i>
-              </Link>
-                <span>{likes}</span>
-              <Link className="article-like" to="/login/">
-                <i className="icon-arrow-down"></i>
-              </Link>
-            </div>
-          </div>
-          <div className="comment">
-            <div class="comments-section__head">
-              <h2 class="comments-section__head-title">
-                Комментарии
-                <span class="comments-section__head-counter"></span>
-              </h2>
-            </div>
-            {
-              comment.map(item => 
-                <div className="card-body">
-                  <div className="title-block" key={item.id}>
-                    <img src={item.photo_url} alt={item.autor_name} />
-                    <div className="user-block">{item.autor_name}</div>
-                    <span className="post__time">{item.created_at}</span>
-                  </div>
-                  <div className="text">{item.text}</div>
-                </div>
-              )
-            }
-          </div>
-        </div>
-      </div>
-    );
     
   }
 }

@@ -4,13 +4,13 @@ import UserSetting from './settings-btn';
 
 const UserInfo = (props) => {
 
-    const { UserId, UserProfile } = props;
+    const { UserId, UserProfile, isLoggedIn } = props;
 
     return (
         <div>
         <div className="user-info">
             <img src={UserProfile.photo_url} alt={UserProfile.username} />
-            <UserSetting UserId={UserId} ProfileId={UserProfile.id} />
+            <UserSetting UserId={UserId} ProfileId={UserProfile.id} isLoggedIn={isLoggedIn} />
         </div>
             <div class="user-info__about">
                 <div class="user-info__links">

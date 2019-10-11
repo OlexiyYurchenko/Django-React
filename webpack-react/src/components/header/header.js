@@ -54,7 +54,6 @@ export default class JoinPage extends Component {
     classNameAvatar = 'btn btn-menu no-avatar';
   }
 
-  if(isLoggedIn) {
     return (
       <div className="header">
         <div className="container">
@@ -64,50 +63,47 @@ export default class JoinPage extends Component {
                 Blog
               </Link >
             </div>
+            <div className="nav">
+              <Link className="login btn" to="/users/">
+                Community
+              </Link>
 
-            <div className={className}>
+              {isLoggedIn ? (
+                <div className={className}>
 
-                <div className={classNameAvatar} onClick={this.onToggleOpen}><img src={UserAvatar} alt={UserName} /></div>
-                <div className="drop-header">
-                  <Link className="user" to={`/user/${UserId}/`}>
-                    <span class="user-info__nickname">{UserName}</span>
-                    <span class="user-info__special">Профиль</span>
-                  </Link>
-        
-                    <Link className="login" to="/add/">
-                      Add Post
-                    </Link>
-                    <div className="join" onClick={onlogout}>
-                      Logout
+                    <div className={classNameAvatar} onClick={this.onToggleOpen}><img src={UserAvatar} alt={UserName} /></div>
+                    <div className="drop-header">
+                      <Link className="user" to={`/user/${UserId}/`}>
+                        <span class="user-info__nickname">{UserName}</span>
+                        <span class="user-info__special">Профиль</span>
+                      </Link>
+            
+                        <Link className="login" to="/add/">
+                          Add Post
+                        </Link>
+                        <div className="join" onClick={onlogout}>
+                          Logout
+                        </div>
                     </div>
                 </div>
+              ) : (
+                <div className="join-btn">
+                  <Link className="login btn" to="/login/">
+                    Sign in
+                  </Link>
+                  <Link className="join btn" to="/join/">
+                    Sign up
+                  </Link>
+                </div>
+              )}
+
+
             </div>
+
           </div>
         </div>
       </div>
     );
-  }
-  return (
-    <div className="header">
-      <div className="container">
-        <div className="holder">
-          <div className="logo">
-            <Link to="/">
-              Blog
-            </Link >
-          </div>
 
-          <div className="nav">
-            <Link className="login btn" to="/login/">
-              Sign in
-            </Link>
-            <Link className="join btn" to="/join/">
-              Sign up
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
   }
 };

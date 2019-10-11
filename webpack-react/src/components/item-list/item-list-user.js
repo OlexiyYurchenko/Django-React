@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Spinner from '../spinner';
 import Items from './items';
 import UserInfo from '../user-info';
+import Comments from '../comment';
+import { Tabs, useTabState, usePanelState } from "@bumaga/tabs";
 import { Link } from 'react-router-dom';
 
 import './item-list.css';
@@ -24,10 +26,10 @@ export default class ItemListUser extends Component {
       return;
     }
     getData(itemId)
-      .then((itemd) => {
+      .then((item) => {
 
         this.setState({
-          data: itemd,
+          data: item,
           loading: false,
         });
       }); 
@@ -36,18 +38,48 @@ export default class ItemListUser extends Component {
   render() {
 
     const { data, loading } = this.state;
-    const { UserId } = this.props;
+    const { UserId, isLoggedIn } = this.props;
+
+    const cn = (...args) => args.filter(Boolean).join(' ')
+    
+    const Tab = ({ children }) => {
+      const { isActive, onClick } = useTabState()
+    
+      return <div className={cn('tabs-menu__item', isActive && 'active')} onClick={onClick}>{children}</div>;
+    };
+    
+    const Panel = ({ children }) => {
+      const isActive = usePanelState();
+      return isActive ? <p>{children}</p> : null;
+    };
 
     if (loading) {
       return <Spinner />;
     }
 
     return (
-      <div>
-        <UserInfo UserId={UserId} UserProfile={data} />
-        <ul className="item-list list-group">
-          <Items data={data.article_user} />
-        </ul>
+      <div className="item-details">
+        <UserInfo isLoggedIn={isLoggedIn} UserId={UserId} UserProfile={data} />
+
+
+        <Tabs>
+          <div className="tabs">
+            <Tab>articles <span className="count">{data.article_user.length}</span></Tab>
+            <Tab>comments <span className="count">{data.comment_user.length}</span></Tab>
+          </div>
+
+          <Panel>
+            <ul className="item-list list-group">
+              <Items data={data.article_user} />
+            </ul>
+          </Panel>
+          <Panel>
+            <div className="comment">
+              <Comments data={data.comment_user} />
+            </div>
+          </Panel>
+        </Tabs>
+
       </div>
     );
   };

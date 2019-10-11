@@ -11,7 +11,7 @@ const ArticlePage = ({ isLoggedIn, UserId, history, match }) => {
 
     if ( match.path == '/user/:id?') {
       return (
-        <ArticleUserDetails UserId={UserId} itemId={ id } />
+        <ArticleUserDetails UserId={UserId} itemId={ id } isLoggedIn={isLoggedIn} />
       )
     }
     

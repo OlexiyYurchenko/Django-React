@@ -14,6 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     photo_url = serializers.SerializerMethodField()
     autor_name = serializers.ReadOnlyField(source='user.username')
+    pk_user = serializers.ReadOnlyField(source='user.id')
     created_at = serializers.DateTimeField(format="%Y.%m.%d %H:%M")
     class Meta:
         model = Comment
@@ -22,7 +23,8 @@ class CommentSerializer(serializers.ModelSerializer):
             'text',
             'autor_name',
             'created_at',
-            'photo_url'
+            'photo_url',
+            'pk_user'
         ]
     def get_photo_url(self, com):
         photo_url = com.user.profile.image
@@ -31,10 +33,6 @@ class CommentSerializer(serializers.ModelSerializer):
         else:
             user_avatar = '/static/first_project/no_avatar.svg'
         return user_avatar
-
-
- 
-
 
 
 class ArticlePreviewSerializer(serializers.ModelSerializer):
@@ -95,6 +93,8 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
         return user_avatar
 
 class UserPreviewSerializer(serializers.ModelSerializer):
+    photo_url = serializers.SerializerMethodField()
+    user = ArticlePreviewSerializer(required=False, many=True)
     class Meta:
         model = User
         fields = [
@@ -102,8 +102,17 @@ class UserPreviewSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'url',
-            'profile'
+            'photo_url',
+            'profile',
+            'user'
         ]
+    def get_photo_url(self, art):
+        photo_url = art.profile.image
+        if photo_url:
+            user_avatar = 'https://res.cloudinary.com/devblog12/image/upload/' + str(photo_url) + '.jpg'
+        else:
+            user_avatar = '/static/first_project/no_avatar.svg'
+        return user_avatar
 
 
 class UserDetailSerializer(serializers.ModelSerializer):

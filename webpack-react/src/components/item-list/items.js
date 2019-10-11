@@ -23,7 +23,7 @@ const Items = (props) => {
           <Link to={`/articles/${id}/`}>{title}</Link>
         </div>
         <div className="text">{ announce_text }...</div>
-        <Link className="btn btn-more" to={`/articles/${id}/`}>Читать дальше →</Link>
+        <Link className="btn btn-more" to={`/articles/${id}/`}>Read more →</Link>
       </div>
     );
   });
